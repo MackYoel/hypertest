@@ -1,0 +1,15 @@
+*.sublime-workspace
+*.sublime-project
+*.pyc
+*.pyo
+*.mo
+*~
+.coverage
+db.sqlite3
+uwsgi.ini
+log/**
+!log/placeholder
+media/**
+!media/**/init.txt
+node_modules
+errors.log
