@@ -1,0 +1,80 @@
+{% load static %}<!DOCTYPE html>
+<html>
+<head>
+	<title>{{app_name}}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href={% static 'website/site/static/css/spectre.min.css' %} rel=stylesheet>
+	<link href={% static 'website/site/static/css/spectre-icons.min.css' %} rel=stylesheet>
+	<link href={% static 'website/site/static/css/home.css' %} rel=stylesheet>
+</head>
+<body>
+<div class="_container">
+	
+<header class="navbar">
+  <section class="navbar-section">
+  	<h1 class="appTitle "><span class="hyper">hyper</span><span class="test">Test</span></h1>
+  </section>
+  <section class="navbar-section">
+    <div class="input-group input-inline">
+      <input class="form-input" type="text" placeholder="Próximamente" />
+      <button class="btn btn-primary input-group-btn"><i class="icon icon-search"></i></button>
+    </div>
+  </section>
+</header>
+
+<div class="columns banner">
+	<div class="column col-12 bg-purple1">
+	  <section class="empty bg-purple1">
+	    <h4 class="empty-title orange">Duelo de conocimientos. Porque lo que se puede medir, se puede mejorar.</h4>
+	    <p class="empty-subtitle orange">Reta a un(a) amig@ a un duelo de...</p>
+	    <div class="empty-action input-group input-inline">
+	      <input type="text" class="form-input" placeholder="Próximamente">
+	      <button class="btn btn-primary input-group-btn"><i class="icon icon-search"></i></button>
+	    </div>
+	  </section>
+	</div>
+</div>
+{% if active_duels %}
+<section class="columns">
+	<div class="column col-12">
+		<span class="padd-left">Duelos activos:</span>
+		{% for ad in active_duels %}
+			<a href="/{{ad.duel__token}}"><button class="btn btn-link">{{ad.duel__name | default:ad.duel__theme__name}}</button></a>
+		{% endfor %}
+	</div>
+</section>
+{% endif %}
+<section class="columns _themes">
+{% for t in themes %}
+	<div class="column col-4 col-xs-12">
+		<div class="card">
+		  <div class="card-image">
+		    <!-- <img class="img-responsive" src="img/osx-el-capitan.jpg"> -->
+		  </div>
+		  <div class="card-header">
+		    <div class="card-title">{{t.name}}</div>
+		    <div class="card-subtitle">{{t.tags}}</div>
+		  </div>
+		  <div class="card-body">
+		    {{t.description}}
+		  </div>
+		  <div class="card-footer">
+		  	<form action="." method="post">
+		  		{% csrf_token %}
+		  		<input type="hidden" name="theme" value="{{t.pk}}" />
+		  		<button type="submit" class="btn btn-primary">Crear duelo</button>
+		  	</form>
+		  </div>
+		</div>
+	</div>
+{% endfor %}
+</section>
+
+<footer>
+	© 2017 <span class="hyper">hyper</span><span class="test">Test</span> Technologies.
+</footer>
+<!-- https://coolors.co/44355b-31263e-221e22-eca72c-ee5622 -->
+
+</div>
+</body>
+</html>
